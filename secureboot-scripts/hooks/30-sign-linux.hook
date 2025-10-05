@@ -1,0 +1,10 @@
+[Trigger]
+Operation = Install
+Operation = Upgrade
+Type = Package
+Target = linux
+
+[Action]
+Description = Sign Linux
+When = PostTransaction
+Exec = /bin/bash -c '/etc/secureboot/signlinuxkernal.sh'

@@ -1,0 +1,10 @@
+[Trigger]
+Operation = Install
+Operation = Upgrade
+Type = Package
+Target = shim-signed
+
+[Action]
+Description = Copying New shims
+When = PostTransaction
+Exec = /bin/bash -c 'cp /usr/share/shim-signed/{shimx64.efi,mmx64.efi} /boot/EFI/systemd'
