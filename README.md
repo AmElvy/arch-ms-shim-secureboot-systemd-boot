@@ -1,6 +1,8 @@
 # arch-ms-shim-secureboot-systemd-boot
 garbage scripts, hooks, entries for setting up secureboot on dualboot arch installs with ubuntu/fedora ms shim.
+
 my weird messy version, mostly for me on reinstalling.
+
 embrace the jank.
 
 i've heavily borrowed from https://gist.github.com/devcexx/e1d168dc299540e9644af6f97cf5597f
@@ -11,15 +13,18 @@ so let's use a shim.
 
 # Is this secure?
 LOL no.
+
 but secureboot isn't really secure either.
+
 it's security theatre.
+
 but I need secureboot on windows for anti cheat games. (LAME)
 
 # Requirements
-Systemd-boot (either a new or existing install)
-shim-signed (AUR)
-efibootmgr
-sbsigntools
+  - Systemd-boot (either a new or existing install)
+  - shim-signed (AUR)
+  - efibootmgr
+  - sbsigntools
 
 # Assumptions
   - assumptions are a little different to the gist linked.
@@ -32,7 +37,7 @@ Scripts are located at /etc/secureboot
 
 # How to use
 
-**Run the following commands as root**
+**Run the following commands as root!**
 
 ### Generate keys
 ```bash
@@ -60,6 +65,16 @@ mv *.sh /etc/secureboot
 ./signlinuxkernel.sh
 ./signlinuxzenkernel.sh (optional)
 ```
+
+### Add UEFI entry
+```bash
+efibootmgr --unicode --disk /dev/nvme0n1 \
+  --part 1 \
+  --create \
+  --label 'Shim' \
+  --loader '\EFI\systemd\shimx64.efi'
+```
+
 
 ### Add signed systemd-boot entries
 make a copy of the entries you use.
