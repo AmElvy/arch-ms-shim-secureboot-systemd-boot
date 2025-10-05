@@ -12,11 +12,7 @@ Resigning microsoft garbage EFI files is prone to breaking.
 so let's use a shim.
 
 # Is this secure?
-LOL no.
-
-but secureboot isn't really secure either.
-
-it's security theatre.
+LOL no, but secureboot isn't really secure either. it's more security theatre.
 
 but I need secureboot on windows for anti cheat games. (LAME)
 
@@ -36,6 +32,8 @@ Scripts are located at /etc/secureboot
 
 
 # How to use
+
+**Disable temporarily bitlocker and backup your key first!**
 
 **Run the following commands as root!**
 
@@ -77,12 +75,27 @@ efibootmgr --unicode --disk /dev/nvme0n1 \
 
 
 ### Add signed systemd-boot entries
-make a copy of the entries you use.
+make a copy of the entries you use or steal the entries i've provided.
 
 I'd recommend prefixing either signed and/or unsigned for file names and titles.
 
-prefix vmlinuz files with -signed.
+prefix vmlinuz files with -signed. (e.g. vmlinuz-linux-zen-signed)
 
 for some reason the unsigned ones are also added in options??? I should test without but i'm lazy and if it works, it works
 
 My systemd config is in the "example systemd install" folder.
+
+### Enrol key, Enable secure boot and boot
+
+Run ``mokutil --import /etc/secureboot/MOK.cer`` and type in a password and reboot
+
+Enable secure boot in your BIOS.
+
+Select the new "Shim" entry.
+
+Select Enrol Key, enter the previously typed password, then continue.
+
+Reboot, and verify if you can start Arch, then check windows
+
+
+<img width="349" height="175" alt="Screenshot_20251006_021317" src="https://github.com/user-attachments/assets/de2d2d80-434b-4e38-aa19-9c89cca3f010" />
